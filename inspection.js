@@ -1,3 +1,4 @@
 $(function() {
-	$('input[type="date"]').val(new Date());
+	//$('input[type="date"]').val(new Date().toDateString());
+	$('input.date').datepicker();
 });
