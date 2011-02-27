@@ -1,2 +1,4 @@
-body { font-size:x-large; }
+body { font-size:x-large; font-family:Arial, Helvetica, sans-serif;}
 dfn { width: 100px; float: left; }
+form div { margin-bottom: 1em; }
+.ui-widget { font-size: 1em !important; }
