@@ -1,3 +1,14 @@
 CACHE MANIFEST
+
 inspection.css
 inspection.js
+
+http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js
+http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js
+
+http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/hot-sneaks/jquery-ui.css
+http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/hot-sneaks/images/ui-bg_flat_75_ffffff_40x100.png			
+http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/hot-sneaks/images/ui-bg_dots-small_35_35414f_2x2.png			
+http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/hot-sneaks/images/ui-bg_dots-medium_80_ffff38_4x4.png			
+http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/hot-sneaks/images/ui-icons_e1e463_256x240.png			
+http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/hot-sneaks/images/ui-bg_diagonals-small_50_93c3cd_40x40.png			
