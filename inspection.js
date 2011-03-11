@@ -16,6 +16,7 @@
 })(jQuery);
 
 $(function() {
+	/*
 	$('input.date').datepicker();
 	
 	$('form').submit(function(e) {
@@ -29,4 +30,17 @@ $(function() {
 	var loadedData = localStorage['inspection.header'];
 	if (loadedData != null)
 		$('form').populateFromJSON(loadedData);
+	*/
+	
+	inspection.generateFormFrom();
 });
+
+var inspection = {
+	templates : {},
+	generateFormFrom : function(templateName) {
+		
+	},	
+	installTemplate : function(template) {
+		this.templates[template.Name] = template;
+	}
+}

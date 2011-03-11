@@ -2,6 +2,7 @@ CACHE MANIFEST
 
 inspection.css
 inspection.js
+flha.js
 
 http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js
 http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js
