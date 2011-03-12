@@ -1,10 +1,19 @@
 $(function() {
 	inspection.generateFormFrom('FLHA');
 	$('input.date').datepicker();
+	
+	$.fn.serializeToJSON=function() {
+		var data = inspection.currentTemplate;
+		data.fields.forEach(function (field) {
+			field.value = $('input[name="'+field.name+'"]').val();
+		});
+		return JSON.stringify(data);
+	};
 });
 
 var inspection = {
 	templates : {},
+	currentTemplate : null,
 	generateFormFrom : function(templateName) {
 		var fieldGenerators = {
 			text : function(label, name, value){
@@ -20,10 +29,11 @@ var inspection = {
 		}
 		
 		var template = this.templates[templateName];
-		$.each(template.fields, function (i, field) {
+		template.fields.forEach(function (field) {
 			$(fieldGenerators[field.type](field.label, field.name, field.value))
 				.prependTo('form');
 		});
+		this.currentTemplate = template;
 	},	
 	installTemplate : function(template) {
 		this.templates[template.name] = template;
@@ -37,14 +47,6 @@ var inspection = {
 		$.each(data, function(i, e) {
 			$('input[name="' + i + '"]').val(e);
 		});
-	};
-	
-	$.fn.serializeJSON=function() {
-		var data = {};
-		$.each($(this).serializeArray(), function(i, e) {
-			data[e.name] = e.value 
-		});
-		return JSON.stringify(data);
 	};
 	
 	$('form').submit(function(e) {
