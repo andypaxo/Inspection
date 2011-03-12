@@ -1,8 +1,8 @@
 inspection.installTemplate({
 	name : 'FLHA',
 	fields : [
-		{ name: 'date', type: 'date'},
-		{ name: 'location', type: 'text'},
-		{ name: 'contact', type: 'text'}
+		{ label: 'Date', name: 'date', type: 'date'},
+		{ label: 'Location', name: 'location', type: 'text'},
+		{ label: 'Contact', name: 'contact', type: 'text'}
 	]
 });
