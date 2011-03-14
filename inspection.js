@@ -37,6 +37,11 @@ var inspection = {
 				return $.tmpl(
 					'<div><dfn>${label}</dfn><input name="${name}" class="date" value="${value}" /></div>',
 					{ label : label, name : name, value : value });
+			},
+			check : function(label, name, value) {
+				return $.tmpl(
+					'<div><dfn>${label}</dfn><input name="${name}" type="checkbox" value="${value}" /></div>',
+					{ label : label, name : name, value : value });
 			}
 		}
 		
