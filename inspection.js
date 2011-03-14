@@ -1,18 +1,7 @@
 $(function() {
-	var currentForm = localStorage['currentForm'];
-	if (currentForm)
-		inspection.generateFormFrom(JSON.parse(currentForm));
-	else
-		inspection.generateFormNamed('FLHA');
-	
-	
-	$('input.date').datepicker();
-	
-	$('form').submit(function(e) {
-		e.preventDefault();
-		localStorage['currentForm'] = $(this).serializeToJSON();
-	});
-	
+	$('#newForm').click(startNewForm);
+	$('#resumeForm').click(resumeLastForm);
+		
 	$.fn.serializeToJSON=function() {
 		var data = inspection.currentTemplate;
 		data.fields.forEach(function (field) {
@@ -21,6 +10,15 @@ $(function() {
 		return JSON.stringify(data);
 	};
 });
+
+function startNewForm() {
+	inspection.generateFormNamed('FLHA');
+}
+
+function resumeLastForm(){
+	var currentForm = JSON.parse(localStorage['currentForm']);
+	inspection.generateFormFrom(currentForm);
+}
 
 var inspection = {
 	templates : {},
@@ -42,10 +40,21 @@ var inspection = {
 			}
 		}
 		
+		$('form').html('');
 		template.fields.forEach(function (field) {
 			$(fieldGenerators[field.type](field.label, field.name, field.value))
-				.prependTo('form');
+				.appendTo('form');
 		});
+		
+		$('<input type="submit" value="Save"/>').appendTo('form');
+		
+		$('input.date').datepicker();
+		
+		$('form').submit(function(e) {
+			e.preventDefault();
+			localStorage['currentForm'] = $(this).serializeToJSON();
+		});
+		
 		this.currentTemplate = template;
 	},	
 	installTemplate : function(template) {
