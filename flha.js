@@ -5,7 +5,7 @@ inspection.installTemplate({
 		{ label: 'Location', name: 'location', type: 'text'},
 		{ label: 'Supervisor Name', name: 'supervisor', type: 'text'},
 		{ label: 'Emergency Contact Name', name: 'contact', type: 'text'},
-		{ label: 'Emergency Contact Pnone #', name: 'contactPhone', type: 'text'},
+		{ label: 'Emergency Contact Phone #', name: 'contactPhone', type: 'text'},
 		
 		{ label: 'Buried Pipelines', name: 'Potential', type: 'check'},
 		{ label: 'Buried Power Lines', name: 'Potential', type: 'check'},

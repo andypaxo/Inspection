@@ -3,19 +3,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Inspection</title>
+        <title>My Forms Online</title>
 		<link type='text/css' rel='stylesheet' href='inspection.css' />
 		<link type='text/css' rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/hot-sneaks/jquery-ui.css' />
     </head>
     <body>
-        <h1>Inspection header</h1>
+        <h1>My Forms Online</h1>
 		
-		<p>
-			<button id='newForm'>Start new</button>
-			<button id='resumeForm'>Resume previous</button>
-		</p>
+		<div id='start'>
+			<p>
+				<button id='newForm'>Start new</button>
+			</p>
+			
+			<h2>Old Forms</h2>
+			<ul id='oldForms'></ul>
+		</div>
 		
-		<form action='#'></form>
+		<form action='#' display='none'></form>
 		
 		<script type='text/javascript' language='JavaScript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
 		<script type='text/javascript' language='JavaScript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js'></script>

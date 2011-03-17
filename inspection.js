@@ -1,23 +1,66 @@
 $(function() {
+	loadOldInspections();
 	$('#newForm').click(startNewForm);
-	$('#resumeForm').click(resumeLastForm);
 		
-	$.fn.serializeToJSON=function() {
+	$.fn.toData = function() {
 		var data = inspection.currentTemplate;
 		data.fields.forEach(function (field) {
 			field.value = $('input[name="'+field.name+'"]').val();
 		});
-		return JSON.stringify(data);
+		return data;
 	};
 });
+
+function loadOldInspections() {
+	$('#oldForms').html('');
+	
+	load('forms', []).forEach(function(form) {
+		$('#oldForms').append($.tmpl(
+			'<li><span data-formName="${formName}">${date}</span></li>',
+			{
+				'date': new Date(form.date).toDateString(),
+				'formName': form.name
+			}));
+	});
+	
+	$('#oldForms li span')
+		.button()
+		.click(function(){
+			resumeForm($(this).attr('data-formName'));
+		});
+}
 
 function startNewForm() {
 	inspection.generateFormNamed('FLHA');
 }
 
-function resumeLastForm(){
-	var currentForm = JSON.parse(localStorage['currentForm']);
+function resumeForm(formName){
+	var currentForm = load('form-' + formName);
 	inspection.generateFormFrom(currentForm);
+}
+
+function saveForm(formData){
+	// Would be better to generate form name when starting form
+	// (think multiple saves)
+	var forms = load('forms', []);
+	var now = new Date();
+	var name = now.toJSON();
+	forms.unshift({
+		date : now,
+		name : name
+	});
+	
+	save('forms', forms);
+	save('form-' + name, formData);
+}
+
+function load(name, defaultData) {
+	var data = localStorage[name];
+	return data ? JSON.parse(data) : defaultData;
+}
+
+function save(name, data) {
+	localStorage[name] = JSON.stringify(data);
 }
 
 var inspection = {
@@ -45,6 +88,7 @@ var inspection = {
 			}
 		}
 		
+		$('#start').slideUp();
 		$('form').html('');
 		template.fields.forEach(function (field) {
 			$(fieldGenerators[field.type](field.label, field.name, field.value))
@@ -57,35 +101,16 @@ var inspection = {
 		
 		$('form').submit(function(e) {
 			e.preventDefault();
-			localStorage['currentForm'] = $(this).serializeToJSON();
+			saveForm($(this).toData());
+			loadOldInspections();
+			$(this).slideUp();
+			$('#start').slideDown();
 		});
 		
+		$('form').slideDown();
 		this.currentTemplate = template;
 	},	
 	installTemplate : function(template) {
 		this.templates[template.name] = template;
 	}
 }
-
-/*
-(function($){
-	$.fn.populateFromJSON = function(data){
-		data = JSON.parse(data);
-		$.each(data, function(i, e) {
-			$('input[name="' + i + '"]').val(e);
-		});
-	};
-	
-	$('form').submit(function(e) {
-		e.preventDefault();
-		
-		var formData = $(this).serializeJSON();
-		console.log(formData);
-		localStorage['inspection.header'] = formData;
-	});
-	
-	var loadedData = localStorage['inspection.header'];
-	if (loadedData != null)
-		$('form').populateFromJSON(loadedData);
-})(jQuery);
-*/
