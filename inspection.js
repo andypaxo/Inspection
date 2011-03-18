@@ -5,7 +5,7 @@ $(function() {
 	$.fn.toData = function() {
 		var data = inspection.currentTemplate;
 		data.fields.forEach(function (field) {
-			field.value = $('input[name="'+field.name+'"]').val();
+			field.value = valueOf('input[name="'+field.name+'"]');
 		});
 		return data;
 	};
@@ -63,6 +63,12 @@ function save(name, data) {
 	localStorage[name] = JSON.stringify(data);
 }
 
+function valueOf(elementName) {
+	return $(elementName + '[type="checkbox"]').length
+		? $(elementName).is(':checked')
+		: $(elementName).val();
+}
+
 var inspection = {
 	templates : {},
 	currentTemplate : null,
@@ -83,8 +89,8 @@ var inspection = {
 			},
 			check : function(label, name, value) {
 				return $.tmpl(
-					'<div><dfn>${label}</dfn><input name="${name}" type="checkbox" value="${value}" /></div>',
-					{ label : label, name : name, value : value });
+					'<div><dfn>${label}</dfn><input name="${name}" type="checkbox" ${checked} /></div>',
+					{ label : label, name : name, checked : value ? 'checked="checked"' : ''});
 			}
 		}
 		
