@@ -23,6 +23,8 @@ function loadOldInspections() {
 			}));
 	});
 	
+	$('button').button();
+	
 	$('#oldForms li span')
 		.button()
 		.click(function(){
@@ -102,8 +104,8 @@ var inspection = {
 		});
 		
 		$('<input type="submit" value="Save"/>').appendTo('form');
-		
 		$('input.date').datepicker();
+		$('input[type="submit"]').button().css('float', 'left');
 		
 		$('form').submit(function(e) {
 			e.preventDefault();
