@@ -1,5 +1,6 @@
 body { font-size:x-large; font-family:Arial, Helvetica, sans-serif;}
-dfn { width: 150px; float: left; }
+dfn { width: 250px; float: left; }
 form div { margin-bottom: 1em; float:left; clear:left; }
-form > input { display:block; clear:both; }
+form > input { display:block; clear:both; width:250px; }
+#oldForms li { margin-bottom: 10px; }
 .ui-widget { font-size: 1em !important; }
