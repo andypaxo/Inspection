@@ -10,4 +10,5 @@ form div { margin-bottom: 1em; float:left; clear:left; }
 form > input { display:block; clear:both; width:250px; }
 #oldForms li { margin-bottom: 10px; list-style: none; }
 #start button { margin-left: 40px; }
+#cancel { position:absolute; right:30px; top:10px; display:none; }
 .ui-widget { font-size: 1em !important; }

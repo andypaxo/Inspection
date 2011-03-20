@@ -1,7 +1,6 @@
 $(function() {
 	loadOldInspections();
 	$('#newForm').click(startNewForm);
-	//$('h1').show('bounce');
 		
 	$.fn.toData = function() {
 		var data = inspection.currentTemplate;
@@ -115,10 +114,12 @@ var inspection = {
 				loadOldInspections();
 				$(this).slideUp();
 				$('#start').slideDown();
+				$('#cancel').fadeOut();
 			});
 		
 		$('#start').hide('blind', {}, 'slow', function() {
 			$('form').slideDown();
+			$('#cancel').fadeIn();
 		});
 		
 		this.currentTemplate = template;
