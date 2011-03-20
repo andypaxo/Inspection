@@ -1,6 +1,7 @@
 $(function() {
 	loadOldInspections();
 	$('#newForm').click(startNewForm);
+	//$('h1').show('bounce');
 		
 	$.fn.toData = function() {
 		var data = inspection.currentTemplate;
@@ -96,7 +97,6 @@ var inspection = {
 			}
 		}
 		
-		$('#start').slideUp();
 		$('form').html('');
 		template.fields.forEach(function (field) {
 			$(fieldGenerators[field.type](field.label, field.name, field.value))
@@ -107,15 +107,20 @@ var inspection = {
 		$('input.date').datepicker();
 		$('input[type="submit"]').button().css('float', 'left');
 		
-		$('form').submit(function(e) {
-			e.preventDefault();
-			saveForm($(this).toData());
-			loadOldInspections();
-			$(this).slideUp();
-			$('#start').slideDown();
+		$('form')
+			.hide()
+			.submit(function(e) {
+				e.preventDefault();
+				saveForm($(this).toData());
+				loadOldInspections();
+				$(this).slideUp();
+				$('#start').slideDown();
+			});
+		
+		$('#start').hide('blind', {}, 'slow', function() {
+			$('form').slideDown();
 		});
 		
-		$('form').slideDown();
 		this.currentTemplate = template;
 	},	
 	installTemplate : function(template) {

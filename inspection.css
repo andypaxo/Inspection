@@ -1,5 +1,11 @@
-body { font-size:x-large; font-family:Arial, Helvetica, sans-serif;}
+body { font-size:x-large; font-family:Arial, sans-serif; margin:0}
+h1 { background-color:#333; color:White; position:absolute; width:100%; margin:0; top:0; height:60px}
+h1 a { text-decoration:none; color:White; float:right; display:block; font-size:small; }
+h1 a:hover { color:Yellow; }
+h1, h2 { margin:0; padding:10px; font-family:Helvetica, sans-serif; }
+#start, form { margin-top: 100px; }
 dfn { width: 250px; float: left; }
+form { padding:10px; }
 form div { margin-bottom: 1em; float:left; clear:left; }
 form > input { display:block; clear:both; width:250px; }
 #oldForms li { margin-bottom: 10px; list-style: none; }
