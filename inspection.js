@@ -1,6 +1,6 @@
 $(function() {
+	loadTemplates();
 	loadOldInspections();
-	$('#newForm').click(startNewForm);
 		
 	$.fn.toData = function() {
 		var data = inspection.currentTemplate;
@@ -11,19 +11,32 @@ $(function() {
 	};
 });
 
+function loadTemplates() {
+	var mappedTemplates = [];
+	for (var e in inspection.templates)
+		mappedTemplates.push(inspection.templates[e]);
+	
+	$('#templateButton')
+		.tmpl(mappedTemplates)
+		.appendTo('#newForms')
+		.find('span')
+		.button()
+		.click(startNewForm);
+}
+
 function loadOldInspections() {
 	$('#oldForms').html('');
 	
-	load('forms', []).forEach(function(form) {
-		$('#oldForms').append($.tmpl(
-			'<li><span data-formName="${formName}">${date}</span></li>',
-			{
-				'date': new Date(form.date).toDateString(),
-				'formName': form.name
-			}));
-	});
+	var loadedForms = $.map(
+		load('forms', []),
+		function(form) {return {
+			date : new Date(form.date).toDateString(),
+			formName : form.name
+		}});
 	
-	$('button').button();
+	$('#oldFormButton')
+		.tmpl(loadedForms)
+		.appendTo('#oldForms')
 	
 	$('#oldForms li span')
 		.button()
@@ -33,7 +46,8 @@ function loadOldInspections() {
 }
 
 function startNewForm() {
-	inspection.generateFormNamed('FLHA');
+	var formName = $(this).tmplItem().data.name;
+	inspection.generateFormNamed(formName);
 }
 
 function resumeForm(formName){

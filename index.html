@@ -12,15 +12,22 @@
         <h1>My Forms Online<a id='cancel' href='.'>cancel</a></h1>
 		
 		<div id='start'>
-			<p>
-				<button id='newForm'>Start new</button>
-			</p>
-			
-			<h2>Old Forms</h2>
+			<h2>start new form</h2>
+			<ul id='newForms'></ul>
+			<h2>view past forms</h2>
 			<ul id='oldForms'></ul>
 		</div>
 		
 		<form action='#'></form>
+
+		<script id="templateButton" type="text/x-jquery-tmpl">
+		    <li><span>${name}</span></li>
+		</script>
+		<form action='#'></form>
+
+		<script id="oldFormButton" type="text/x-jquery-tmpl">
+		    <li><span data-formName="${formName}">${date}</span></li>
+		</script>
 		
 		<script type='text/javascript' language='JavaScript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
 		<script type='text/javascript' language='JavaScript' src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js'></script>

@@ -6,12 +6,13 @@ h1 {
 h1 a { text-decoration:none; color:White; float:right; display:block; font-size:small; }
 h1 a:hover { color:Yellow; }
 h1, h2 { margin:0; padding:10px; font-family: 'Ubuntu', arial, serif; }
+h2 { text-transform:lowercase; }
 #start, form { margin-top: 80px; }
 dfn { width: 250px; float: left; }
 form { padding:10px; }
 form div { margin-bottom: 1em; float:left; clear:left; }
 form > input { display:block; clear:both; width:250px; }
-#oldForms li { margin-bottom: 10px; list-style: none; }
+#start ul li { margin-bottom: 10px; list-style: none; }
 #start button { margin-left: 40px; }
 #cancel { position:absolute; right:30px; top:10px; display:none; }
 .ui-widget { font-size: 1em !important; }
