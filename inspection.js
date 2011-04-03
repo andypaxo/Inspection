@@ -1,4 +1,5 @@
 var forms = new FormsRepository();
+var inspection = new Templates();
 
 $(function() {
 	loadTemplates();
@@ -60,6 +61,7 @@ function FormsRepository() {
 	}
 
 	this.getAll = function(){
+		// TODO : Remove jQuery usage
 		return $.map(
 			load('forms', []),
 			function(form) {return {
@@ -89,14 +91,15 @@ function FormsRepository() {
 	};
 }
 
-var inspection = {
-	templates : {},
-	currentTemplate : null,
+function Templates() {
+	this.templates = {};
+	this.currentTemplate = null;
 	
-	generateFormNamed : function(templateName) {
+	this.generateFormNamed = function(templateName) {
 		this.generateFormFrom(this.templates[templateName]);
-	},
-	generateFormFrom : function(template) {
+	};
+	
+	this.generateFormFrom = function(template) {
 		var fieldGenerators = {
 			text : function(label, name, value){
 				return $.tmpl(
@@ -142,15 +145,16 @@ var inspection = {
 		});
 		
 		this.currentTemplate = template;
-	},
+	};
 	
-	installTemplate : function(template) {
+	this.installTemplate = function(template) {
 		this.templates[template.name] = template;
-	},
-	getAllTemplates : function() {
+	};
+	
+	this.getAllTemplates = function() {
 		var mappedTemplates = [];
 		for (var e in inspection.templates)
 			mappedTemplates.push(inspection.templates[e]);
 		return mappedTemplates;
-	}
+	};
 }
