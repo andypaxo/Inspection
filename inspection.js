@@ -1,4 +1,4 @@
-var forms = new FormsRepository();
+var forms = new FormRepository();
 var inspection = new Templates();
 
 $(function() {
@@ -48,47 +48,6 @@ function valueOf(elementName) {
 	return $(elementName + '[type="checkbox"]').length
 		? $(elementName).is(':checked')
 		: $(elementName).val();
-}
-
-function FormsRepository() {
-	function load(name, defaultData) {
-		var data = localStorage[name];
-		return data ? JSON.parse(data) : defaultData;
-	}
-	
-	function save(name, data) {
-		localStorage[name] = JSON.stringify(data);
-	}
-
-	this.getAll = function(){
-		// TODO : Remove jQuery usage
-		return $.map(
-			load('forms', []),
-			function(form) {return {
-				date : new Date(form.date).toDateString(),
-				formName : form.name
-			}});
-	};
-	
-	this.saveForm = function(formData){
-		// Would be better to generate form name when starting form
-		// (think multiple saves)
-		var forms = load('forms', []);
-		var now = new Date();
-		var name = now.toJSON();
-		forms.unshift({
-			date : now,
-			name : name
-		});
-		
-		save('forms', forms);
-		save('form-' + name, formData);
-	};
-	
-	this.resumeForm = function(formName) {
-		var currentForm = load('form-' + formName);
-		inspection.generateFormFrom(currentForm);
-	};
 }
 
 function Templates() {
