@@ -1,3 +1,5 @@
+var forms = new FormsRepository();
+
 $(function() {
 	loadTemplates();
 	loadOldInspections();
@@ -11,13 +13,9 @@ $(function() {
 	};
 });
 
-function loadTemplates() {
-	var mappedTemplates = [];
-	for (var e in inspection.templates)
-		mappedTemplates.push(inspection.templates[e]);
-	
+function loadTemplates(){
 	$('#templateButton')
-		.tmpl(mappedTemplates)
+		.tmpl(inspection.getAllTemplates())
 		.appendTo('#newForms')
 		.find('span')
 		.button()
@@ -27,12 +25,7 @@ function loadTemplates() {
 function loadOldInspections() {
 	$('#oldForms').html('');
 	
-	var loadedForms = $.map(
-		load('forms', []),
-		function(form) {return {
-			date : new Date(form.date).toDateString(),
-			formName : form.name
-		}});
+	var loadedForms = forms.getAll();
 	
 	$('#oldFormButton')
 		.tmpl(loadedForms)
@@ -41,7 +34,7 @@ function loadOldInspections() {
 	$('#oldForms li span')
 		.button()
 		.click(function(){
-			resumeForm($(this).attr('data-formName'));
+			forms.resumeForm($(this).attr('data-formName'));
 		});
 }
 
@@ -50,44 +43,56 @@ function startNewForm() {
 	inspection.generateFormNamed(formName);
 }
 
-function resumeForm(formName){
-	var currentForm = load('form-' + formName);
-	inspection.generateFormFrom(currentForm);
-}
-
-function saveForm(formData){
-	// Would be better to generate form name when starting form
-	// (think multiple saves)
-	var forms = load('forms', []);
-	var now = new Date();
-	var name = now.toJSON();
-	forms.unshift({
-		date : now,
-		name : name
-	});
-	
-	save('forms', forms);
-	save('form-' + name, formData);
-}
-
-function load(name, defaultData) {
-	var data = localStorage[name];
-	return data ? JSON.parse(data) : defaultData;
-}
-
-function save(name, data) {
-	localStorage[name] = JSON.stringify(data);
-}
-
 function valueOf(elementName) {
 	return $(elementName + '[type="checkbox"]').length
 		? $(elementName).is(':checked')
 		: $(elementName).val();
 }
 
+function FormsRepository() {
+	function load(name, defaultData) {
+		var data = localStorage[name];
+		return data ? JSON.parse(data) : defaultData;
+	}
+	
+	function save(name, data) {
+		localStorage[name] = JSON.stringify(data);
+	}
+
+	this.getAll = function(){
+		return $.map(
+			load('forms', []),
+			function(form) {return {
+				date : new Date(form.date).toDateString(),
+				formName : form.name
+			}});
+	};
+	
+	this.saveForm = function(formData){
+		// Would be better to generate form name when starting form
+		// (think multiple saves)
+		var forms = load('forms', []);
+		var now = new Date();
+		var name = now.toJSON();
+		forms.unshift({
+			date : now,
+			name : name
+		});
+		
+		save('forms', forms);
+		save('form-' + name, formData);
+	};
+	
+	this.resumeForm = function(formName) {
+		var currentForm = load('form-' + formName);
+		inspection.generateFormFrom(currentForm);
+	};
+}
+
 var inspection = {
 	templates : {},
 	currentTemplate : null,
+	
 	generateFormNamed : function(templateName) {
 		this.generateFormFrom(this.templates[templateName]);
 	},
@@ -124,7 +129,7 @@ var inspection = {
 			.hide()
 			.submit(function(e) {
 				e.preventDefault();
-				saveForm($(this).toData());
+				forms.saveForm($(this).toData());
 				loadOldInspections();
 				$(this).slideUp();
 				$('#start').slideDown();
@@ -137,8 +142,15 @@ var inspection = {
 		});
 		
 		this.currentTemplate = template;
-	},	
+	},
+	
 	installTemplate : function(template) {
 		this.templates[template.name] = template;
+	},
+	getAllTemplates : function() {
+		var mappedTemplates = [];
+		for (var e in inspection.templates)
+			mappedTemplates.push(inspection.templates[e]);
+		return mappedTemplates;
 	}
 }
