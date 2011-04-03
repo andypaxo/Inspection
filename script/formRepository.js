@@ -1,5 +1,6 @@
-function FormRepository(storage) {
+function FormRepository(storage, formNameGenerator) {
 	var storage = storage;
+	var formNameGenerator = formNameGenerator;
 	
 	function load(name, defaultData) {
 		var data = storage[name];
@@ -22,10 +23,9 @@ function FormRepository(storage) {
 	this.saveForm = function(formData){
 		// TODO: Generate form name when starting form (allow multiple save of same form)
 		var forms = load('forms', []);
-		var now = new Date();
-		var name = now.toJSON();
+		var name = formNameGenerator.getName();
 		forms.unshift({
-			date : now,
+			date : name,
 			name : name
 		});
 		
@@ -36,4 +36,10 @@ function FormRepository(storage) {
 	this.loadForm = function(formName) {
 		return load('form-' + formName);
 	};
+}
+
+function FormNameGenerator() {
+	this.getName = function() {
+		return new Date().toJSON();
+	}
 }

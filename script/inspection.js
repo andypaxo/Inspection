@@ -1,6 +1,6 @@
-var formRepository = new FormRepository(localStorage);
+var formRepository = new FormRepository(localStorage, new FormNameGenerator());
 var templateRepository = new TemplateRepository();
-var formGenerator = new FormGenerator();
+var formGenerator = new FormGenerator(formRepository);
 
 $(function() {
 	loadTemplates();
