@@ -18,7 +18,7 @@ function FormRepository() {
 	};
 	
 	this.saveForm = function(formData){
-		// TODO: Would be better to generate form name when starting form (allow multiple save of same form)
+		// TODO: Generate form name when starting form (allow multiple save of same form)
 		var forms = load('forms', []);
 		var now = new Date();
 		var name = now.toJSON();
@@ -31,8 +31,7 @@ function FormRepository() {
 		save('form-' + name, formData);
 	};
 	
-	this.resumeForm = function(formName) {
-		var currentForm = load('form-' + formName);
-		inspection.generateFormFrom(currentForm);
+	this.loadForm = function(formName) {
+		return load('form-' + formName);
 	};
 }

@@ -1,4 +1,4 @@
-templates.installTemplate({
+templateRepository.installTemplate({
 	name : 'FLHA',
 	fields : [
 		{ label: 'Date', name: 'date', type: 'date'},

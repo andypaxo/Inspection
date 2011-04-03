@@ -11,4 +11,8 @@ function TemplateRepository() {
 			mappedTemplates.push(templates[e]);
 		return mappedTemplates;
 	};
+	
+	this.get = function(templateName) {
+		return templates[templateName];
+	}
 }
