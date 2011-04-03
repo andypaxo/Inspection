@@ -1,11 +1,13 @@
-function FormRepository() {
+function FormRepository(storage) {
+	var storage = storage;
+	
 	function load(name, defaultData) {
-		var data = localStorage[name];
+		var data = storage[name];
 		return data ? JSON.parse(data) : defaultData;
 	}
 	
 	function save(name, data) {
-		localStorage[name] = JSON.stringify(data);
+		storage[name] = JSON.stringify(data);
 	}
 
 	this.getAll = function(){

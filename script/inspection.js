@@ -1,4 +1,4 @@
-var formRepository = new FormRepository();
+var formRepository = new FormRepository(localStorage);
 var templateRepository = new TemplateRepository();
 var formGenerator = new FormGenerator();
 
