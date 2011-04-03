@@ -1,4 +1,5 @@
 var forms = new FormRepository();
+var templates = new TemplateRepository();
 var inspection = new Templates();
 
 $(function() {
@@ -16,7 +17,7 @@ $(function() {
 
 function loadTemplates(){
 	$('#templateButton')
-		.tmpl(inspection.getAllTemplates())
+		.tmpl(templates.getAll())
 		.appendTo('#newForms')
 		.find('span')
 		.button()
@@ -51,7 +52,6 @@ function valueOf(elementName) {
 }
 
 function Templates() {
-	this.templates = {};
 	this.currentTemplate = null;
 	
 	this.generateFormNamed = function(templateName) {
@@ -104,16 +104,5 @@ function Templates() {
 		});
 		
 		this.currentTemplate = template;
-	};
-	
-	this.installTemplate = function(template) {
-		this.templates[template.name] = template;
-	};
-	
-	this.getAllTemplates = function() {
-		var mappedTemplates = [];
-		for (var e in inspection.templates)
-			mappedTemplates.push(inspection.templates[e]);
-		return mappedTemplates;
 	};
 }

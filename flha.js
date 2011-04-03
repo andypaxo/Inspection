@@ -1,4 +1,4 @@
-inspection.installTemplate({
+templates.installTemplate({
 	name : 'FLHA',
 	fields : [
 		{ label: 'Date', name: 'date', type: 'date'},
